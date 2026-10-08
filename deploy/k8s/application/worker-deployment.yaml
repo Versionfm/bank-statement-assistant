@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: worker
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: worker
+        app.kubernetes.io/part-of: bank-statement-assistant
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: worker
+          image: bank-statement-assistant:RELEASE_IMAGE
+          imagePullPolicy: Never
+          command: ["bsa-worker"]
+          env:
+            - name: HOME
+              value: /tmp
+            - name: XDG_CONFIG_HOME
+              value: /tmp/.config
+            - name: XDG_CACHE_HOME
+              value: /tmp/.cache
+          envFrom:
+            - configMapRef:
+                name: bank-statement-assistant-config
+            - secretRef:
+                name: bank-statement-assistant-secrets
+          readinessProbe:
+            exec:
+              command: ["bsa-schema-ready"]
+            initialDelaySeconds: 2
+            periodSeconds: 5
+            timeoutSeconds: 5
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: statement-files
+              mountPath: /var/lib/bank-statement-assistant/statements
+            - name: worker-tmp
+              mountPath: /tmp
+            - name: worker-shm
+              mountPath: /dev/shm
+      volumes:
+        - name: statement-files
+          persistentVolumeClaim:
+            claimName: statement-files
+        - name: worker-tmp
+          emptyDir: {}
+        - name: worker-shm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 128Mi

@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: bsa_test
+          POSTGRES_USER: bsa_test
+          POSTGRES_PASSWORD: bsa_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U bsa_test -d bsa_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      BSA_DATABASE_URL: postgresql+psycopg://bsa_test:bsa_test@127.0.0.1:5432/bsa_test
+      TEST_DATABASE_URL: postgresql+psycopg://bsa_test:bsa_test@127.0.0.1:5432/bsa_test
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync --locked
+      - run: uv run alembic upgrade head
+      - run: uv run ruff check src tests migrations
+      - run: uv run ruff format --check src tests migrations
+      - run: uv run mypy src
+      - run: uv run bsa-openapi frontend/openapi.json
+      - run: git diff --exit-code -- frontend/openapi.json
+      - run: uv run pytest --cov=bank_statement_assistant --cov-report=term-missing
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm run typecheck
+      - run: npm run generate:api
+      - run: git diff --exit-code -- src/api/generated.ts
+      - run: npm test
+      - run: npm run build
+
+  manifests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - run: bash -n scripts/deploy-k3s.sh scripts/release-image-ref.sh scripts/render-k3s-release.sh scripts/smoke-k3s.sh
+      - run: kubectl kustomize deploy/k8s/base >/dev/null
+      - run: kubectl kustomize deploy/k8s/application >/dev/null
+      - run: kubectl kustomize deploy/k8s/inference >/dev/null
+      - run: bash scripts/render-k3s-release.sh application "$(bash scripts/release-image-ref.sh)" >/dev/null
+      - run: bash scripts/render-k3s-release.sh migration "$(bash scripts/release-image-ref.sh)" >/dev/null

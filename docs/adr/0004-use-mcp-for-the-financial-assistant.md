@@ -1,0 +1,3 @@
+# Use MCP for the Financial Assistant, not Statement processing
+
+The Financial Assistant will use a cluster-internal MCP server to query trusted application modules, while Statement extraction, validation, Classification, and review will call internal interfaces directly. Normal assistant tools will be read-only and will return application-computed financial results; an assistant may create a Correction Proposal, but only explicit user confirmation through the application can apply it. This preserves MCP's value as a portable agent seam without allowing tool selection or model output to become an unaudited financial write path.

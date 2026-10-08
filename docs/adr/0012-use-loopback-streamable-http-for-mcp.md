@@ -1,0 +1,3 @@
+# Use loopback Streamable HTTP for MCP
+
+The MVP MCP adapter will run as a separate container beside the Financial Assistant in the same Pod and communicate over loopback Streamable HTTP. It will expose no Kubernetes Service or Ingress, retain no chat or financial state in transport sessions, and reuse shared application modules through thin typed tool handlers. This preserves an independently managed MCP process and production transport while avoiding a new unauthenticated cluster endpoint; if MCP later moves to its own Pod, it must gain a private ClusterIP, restrictive NetworkPolicy, and conformant service authentication.

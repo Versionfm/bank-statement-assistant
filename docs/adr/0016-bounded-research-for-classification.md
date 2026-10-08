@@ -1,0 +1,7 @@
+# Use bounded research as classification context
+
+Classification may use a feature-flagged, application-controlled merchant lookup to improve ambiguous merchant descriptions. The deterministic bank parser remains unchanged and never calls the network or an LLM. The worker normalizes a merchant description, performs at most one bounded lookup through the configured provider, caches the result with a TTL, and supplies only bounded snippets and source metadata to the local classifier.
+
+Research is advisory rather than authoritative: snippets are untrusted data, cannot change the taxonomy, and cannot mutate financial records. Network failures produce `unavailable` provenance and cap confidence below the classification threshold so the transaction remains `Needs Review`. Every lookup stores provider, query/response hashes, source hashes, status, cache-hit state, and bounded browser-page escalation metadata in classification provenance. Research is disabled by default. Managed providers require an explicit API key and feature flag; the local browser provider requires the explicit `browser` provider selection and feature flag, but no managed API key.
+
+MCP remains the Financial Assistant adapter only. The worker uses the typed internal evidence provider directly; the MCP server exposes separate, allowlisted Financial Assistant tools and never controls Statement parsing or Classification.

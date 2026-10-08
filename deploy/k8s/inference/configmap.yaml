@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vllm-config
+data:
+  MODEL_ID: Qwen/Qwen3-8B-AWQ
+  MODEL_REVISION: 4da05a8edb55c6046cce958586c33b61da07bb79
+  SERVED_MODEL_NAME: bank-statement-qwen
+  DTYPE: auto
+  MAX_MODEL_LEN: "8192"
+  MAX_NUM_SEQS: "1"
+  GPU_MEMORY_UTILIZATION: "0.90"
+  TOOL_CALL_PARSER: hermes
+  REASONING_PARSER: qwen3
+  GENERATION_CONFIG: vllm
+  SEED: "0"
+  HF_HOME: /models/huggingface
+  XDG_CACHE_HOME: /models/xdg
+  VLLM_CACHE_ROOT: /models/vllm
+  HOME: /tmp

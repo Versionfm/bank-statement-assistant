@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bank-statement-assistant-config
+data:
+  BSA_LOG_LEVEL: INFO
+  BSA_STATEMENT_FILES_PATH: /var/lib/bank-statement-assistant/statements
+  BSA_STATIC_FILES_PATH: /app/static
+  BSA_WORKER_POLL_SECONDS: "1"
+  BSA_JOB_RETRY_DELAY_SECONDS: "5"
+  BSA_JOB_MAX_ATTEMPTS: "3"
+  BSA_JOB_LEASE_SECONDS: "1000"
+  BSA_JOB_HANDLER_TIMEOUT_SECONDS: "900"
+  BSA_APPLICATION_VERSION: 0.1.0
+  BSA_MAX_PDF_BYTES: "15728640"
+  BSA_MAX_PDF_PAGES: "50"
+  BSA_INFERENCE_BASE_URL: http://vllm:8000/v1
+  BSA_INFERENCE_MODEL: bank-statement-qwen
+  BSA_INFERENCE_TIMEOUT_SECONDS: "120"
+  BSA_CLASSIFICATION_BATCH_SIZE: "20"
+  BSA_CLASSIFICATION_RESEARCH_ENABLED: "true"
+  # Kubernetes uses the local, keyless browser provider. Managed Brave search
+  # remains available for deployments that explicitly change this value.
+  BSA_SEARCH_PROVIDER: browser
+  BSA_SEARCH_BASE_URL: https://api.search.brave.com/res/v1/web/search
+  BSA_SEARCH_TIMEOUT_SECONDS: "8"
+  BSA_SEARCH_MAX_RESULTS: "5"
+  BSA_SEARCH_CACHE_TTL_SECONDS: "604800"
+  BSA_BROWSER_SEARCH_BASE_URL: https://html.duckduckgo.com/html/
+  BSA_BROWSER_SEARCH_TIMEOUT_SECONDS: "20"

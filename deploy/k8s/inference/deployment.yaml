@@ -1,0 +1,116 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vllm
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: vllm
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: vllm
+        app.kubernetes.io/part-of: bank-statement-assistant
+    spec:
+      runtimeClassName: nvidia
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      terminationGracePeriodSeconds: 60
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        fsGroup: 65534
+        seccompProfile:
+          type: RuntimeDefault
+      initContainers:
+        - name: initialize-model-cache-permissions
+          image: vllm/vllm-openai@sha256:a230095847e93bd4df9888b33dab956fa9504537b828a23657d2b26fed57b5c9
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-ec", "chown 65534:65534 /models"]
+          securityContext:
+            runAsNonRoot: false
+            runAsUser: 0
+            runAsGroup: 0
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+              add: ["CHOWN"]
+          volumeMounts:
+            - name: model-cache
+              mountPath: /models
+      containers:
+        - name: vllm
+          image: vllm/vllm-openai@sha256:a230095847e93bd4df9888b33dab956fa9504537b828a23657d2b26fed57b5c9
+          imagePullPolicy: IfNotPresent
+          workingDir: /tmp
+          command: ["/bin/sh", "-ec"]
+          args:
+            - >-
+              exec vllm serve "$MODEL_ID"
+              --revision "$MODEL_REVISION"
+              --host 0.0.0.0
+              --port 8000
+              --served-model-name "$SERVED_MODEL_NAME"
+              --dtype "$DTYPE"
+              --max-model-len "$MAX_MODEL_LEN"
+              --max-num-seqs "$MAX_NUM_SEQS"
+              --gpu-memory-utilization "$GPU_MEMORY_UTILIZATION"
+              --enable-prefix-caching
+              --scheduling-policy priority
+              --enable-auto-tool-choice
+              --tool-call-parser "$TOOL_CALL_PARSER"
+              --reasoning-parser "$REASONING_PARSER"
+              --generation-config "$GENERATION_CONFIG"
+              --seed "$SEED"
+          envFrom:
+            - configMapRef:
+                name: vllm-config
+          ports:
+            - name: http
+              containerPort: 8000
+          startupProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 10
+            failureThreshold: 90
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 20
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: "1"
+              memory: 4Gi
+              nvidia.com/gpu: "1"
+            limits:
+              memory: 16Gi
+              nvidia.com/gpu: "1"
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: model-cache
+              mountPath: /models
+            - name: temporary-files
+              mountPath: /tmp
+      volumes:
+        - name: model-cache
+          persistentVolumeClaim:
+            claimName: vllm-model-cache
+        - name: temporary-files
+          emptyDir: {}

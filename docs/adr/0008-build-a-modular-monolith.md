@@ -1,0 +1,3 @@
+# Build a modular monolith with multiple process adapters
+
+The application will keep Statement, Transaction, Classification, Reporting, Correction, Financial Assistant, and shared inference behaviour in deep Python modules rather than distributing business rules across microservices. The web application, Statement worker, and MCP server will run as independently restartable processes from the same application image and act as adapters around those modules. This preserves process isolation where operations require it without introducing network seams or duplicated logic inside the product domain.

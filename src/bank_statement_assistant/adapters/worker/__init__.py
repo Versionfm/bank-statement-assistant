@@ -1,0 +1,1 @@
+"""Statement worker process adapter."""

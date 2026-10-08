@@ -1,0 +1,3011 @@
+{
+  "components": {
+    "schemas": {
+      "Body_upload_statement_api_statements_post": {
+        "properties": {
+          "account_reference": {
+            "title": "Account Reference",
+            "type": "string"
+          },
+          "file": {
+            "format": "binary",
+            "title": "File",
+            "type": "string"
+          }
+        },
+        "required": [
+          "account_reference",
+          "file"
+        ],
+        "title": "Body_upload_statement_api_statements_post",
+        "type": "object"
+      },
+      "BreakdownItemResponse": {
+        "properties": {
+          "amount": {
+            "title": "Amount",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "transaction_count": {
+            "title": "Transaction Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "label",
+          "amount",
+          "transaction_count"
+        ],
+        "title": "BreakdownItemResponse",
+        "type": "object"
+      },
+      "ClassificationAcceptanceRequest": {
+        "properties": {
+          "classification_id": {
+            "title": "Classification Id",
+            "type": "integer"
+          },
+          "idempotency_key": {
+            "title": "Idempotency Key",
+            "type": "string"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          }
+        },
+        "required": [
+          "classification_id",
+          "idempotency_key"
+        ],
+        "title": "ClassificationAcceptanceRequest",
+        "type": "object"
+      },
+      "CorrectionRecordResponse": {
+        "properties": {
+          "created_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "origin": {
+            "title": "Origin",
+            "type": "string"
+          },
+          "previous_revision": {
+            "title": "Previous Revision",
+            "type": "integer"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "revision": {
+            "title": "Revision",
+            "type": "integer"
+          },
+          "transaction_id": {
+            "format": "uuid",
+            "title": "Transaction Id",
+            "type": "string"
+          },
+          "values": {
+            "$ref": "#/components/schemas/TransactionValuesResponse"
+          }
+        },
+        "required": [
+          "id",
+          "transaction_id",
+          "revision",
+          "previous_revision",
+          "values",
+          "reason",
+          "origin",
+          "created_at"
+        ],
+        "title": "CorrectionRecordResponse",
+        "type": "object"
+      },
+      "CurrencySummaryResponse": {
+        "properties": {
+          "amount": {
+            "title": "Amount",
+            "type": "string"
+          },
+          "currency": {
+            "title": "Currency",
+            "type": "string"
+          },
+          "transaction_count": {
+            "title": "Transaction Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "currency",
+          "amount",
+          "transaction_count"
+        ],
+        "title": "CurrencySummaryResponse",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "HealthResponse": {
+        "properties": {
+          "status": {
+            "enum": [
+              "ok",
+              "unavailable"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "HealthResponse",
+        "type": "object"
+      },
+      "LargestTransactionResponse": {
+        "properties": {
+          "amount": {
+            "title": "Amount",
+            "type": "string"
+          },
+          "booking_date": {
+            "format": "date",
+            "title": "Booking Date",
+            "type": "string"
+          },
+          "counterparty": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Counterparty"
+          },
+          "currency": {
+            "title": "Currency",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "reporting_category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reporting Category"
+          }
+        },
+        "required": [
+          "id",
+          "booking_date",
+          "description",
+          "amount",
+          "currency",
+          "counterparty",
+          "reporting_category"
+        ],
+        "title": "LargestTransactionResponse",
+        "type": "object"
+      },
+      "MonthlyReportResponse": {
+        "properties": {
+          "category_breakdown": {
+            "items": {
+              "$ref": "#/components/schemas/BreakdownItemResponse"
+            },
+            "title": "Category Breakdown",
+            "type": "array"
+          },
+          "counterparty_breakdown": {
+            "items": {
+              "$ref": "#/components/schemas/BreakdownItemResponse"
+            },
+            "title": "Counterparty Breakdown",
+            "type": "array"
+          },
+          "largest_transactions": {
+            "items": {
+              "$ref": "#/components/schemas/LargestTransactionResponse"
+            },
+            "title": "Largest Transactions",
+            "type": "array"
+          },
+          "month": {
+            "title": "Month",
+            "type": "string"
+          },
+          "payment_channel_breakdown": {
+            "items": {
+              "$ref": "#/components/schemas/BreakdownItemResponse"
+            },
+            "title": "Payment Channel Breakdown",
+            "type": "array"
+          },
+          "quality": {
+            "$ref": "#/components/schemas/ReportQualityResponse"
+          },
+          "totals": {
+            "$ref": "#/components/schemas/ReportTotalsResponse"
+          },
+          "transfers": {
+            "$ref": "#/components/schemas/TransferSummaryResponse"
+          }
+        },
+        "required": [
+          "month",
+          "totals",
+          "category_breakdown",
+          "counterparty_breakdown",
+          "payment_channel_breakdown",
+          "largest_transactions",
+          "transfers",
+          "quality"
+        ],
+        "title": "MonthlyReportResponse",
+        "type": "object"
+      },
+      "ProcessingStage": {
+        "enum": [
+          "accept",
+          "extract_text",
+          "extract_transactions",
+          "validate",
+          "revalidate",
+          "classify",
+          "review",
+          "publish_state"
+        ],
+        "title": "ProcessingStage",
+        "type": "string"
+      },
+      "ReportOverviewResponse": {
+        "properties": {
+          "previous_period_change": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Previous Period Change"
+          },
+          "totals": {
+            "$ref": "#/components/schemas/ReportTotalsResponse"
+          }
+        },
+        "required": [
+          "totals",
+          "previous_period_change"
+        ],
+        "title": "ReportOverviewResponse",
+        "type": "object"
+      },
+      "ReportQualityResponse": {
+        "properties": {
+          "is_provisional": {
+            "title": "Is Provisional",
+            "type": "boolean"
+          },
+          "provisional_count": {
+            "title": "Provisional Count",
+            "type": "integer"
+          },
+          "unresolved_amount": {
+            "title": "Unresolved Amount",
+            "type": "string"
+          },
+          "unresolved_count": {
+            "title": "Unresolved Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "is_provisional",
+          "provisional_count",
+          "unresolved_count",
+          "unresolved_amount"
+        ],
+        "title": "ReportQualityResponse",
+        "type": "object"
+      },
+      "ReportResponse": {
+        "properties": {
+          "months": {
+            "items": {
+              "$ref": "#/components/schemas/MonthlyReportResponse"
+            },
+            "title": "Months",
+            "type": "array"
+          },
+          "non_eur": {
+            "items": {
+              "$ref": "#/components/schemas/CurrencySummaryResponse"
+            },
+            "title": "Non Eur",
+            "type": "array"
+          },
+          "non_eur_transactions": {
+            "items": {
+              "$ref": "#/components/schemas/LargestTransactionResponse"
+            },
+            "title": "Non Eur Transactions",
+            "type": "array"
+          },
+          "overview": {
+            "$ref": "#/components/schemas/ReportOverviewResponse"
+          }
+        },
+        "required": [
+          "overview",
+          "months",
+          "non_eur",
+          "non_eur_transactions"
+        ],
+        "title": "ReportResponse",
+        "type": "object"
+      },
+      "ReportTotalsResponse": {
+        "properties": {
+          "gross_spending": {
+            "title": "Gross Spending",
+            "type": "string"
+          },
+          "income": {
+            "title": "Income",
+            "type": "string"
+          },
+          "net_account_flow": {
+            "title": "Net Account Flow",
+            "type": "string"
+          },
+          "net_cash_flow": {
+            "title": "Net Cash Flow",
+            "type": "string"
+          },
+          "net_spending": {
+            "title": "Net Spending",
+            "type": "string"
+          },
+          "refunds": {
+            "title": "Refunds",
+            "type": "string"
+          },
+          "transfer_in": {
+            "title": "Transfer In",
+            "type": "string"
+          },
+          "transfer_out": {
+            "title": "Transfer Out",
+            "type": "string"
+          }
+        },
+        "required": [
+          "income",
+          "gross_spending",
+          "refunds",
+          "net_spending",
+          "net_cash_flow",
+          "transfer_in",
+          "transfer_out",
+          "net_account_flow"
+        ],
+        "title": "ReportTotalsResponse",
+        "type": "object"
+      },
+      "ReportTransactionPageResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ReportTransactionResponse"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "title": "Offset",
+            "type": "integer"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "title": "ReportTransactionPageResponse",
+        "type": "object"
+      },
+      "ReportTransactionResponse": {
+        "properties": {
+          "booking_date": {
+            "format": "date",
+            "title": "Booking Date",
+            "type": "string"
+          },
+          "counterparty": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Counterparty"
+          },
+          "currency": {
+            "title": "Currency",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "movement_kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Movement Kind"
+          },
+          "payment_channel": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Payment Channel"
+          },
+          "reporting_category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reporting Category"
+          },
+          "signed_amount": {
+            "title": "Signed Amount",
+            "type": "string"
+          },
+          "transfer_scope": {
+            "anyOf": [
+              {
+                "enum": [
+                  "own_account",
+                  "external_party",
+                  "unknown"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transfer Scope"
+          }
+        },
+        "required": [
+          "id",
+          "booking_date",
+          "description",
+          "signed_amount",
+          "currency",
+          "reporting_category",
+          "movement_kind",
+          "payment_channel",
+          "counterparty",
+          "transfer_scope"
+        ],
+        "title": "ReportTransactionResponse",
+        "type": "object"
+      },
+      "StatementResponse": {
+        "properties": {
+          "account_reference": {
+            "title": "Account Reference",
+            "type": "string"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "current_stage": {
+            "$ref": "#/components/schemas/ProcessingStage"
+          },
+          "extraction_result": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Extraction Result"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "last_error_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Error Code"
+          },
+          "original_filename": {
+            "title": "Original Filename",
+            "type": "string"
+          },
+          "page_count": {
+            "title": "Page Count",
+            "type": "integer"
+          },
+          "review_findings": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Review Findings",
+            "type": "array"
+          },
+          "status": {
+            "enum": [
+              "processing",
+              "needs_review",
+              "ready",
+              "failed",
+              "archived"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "validation_result": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Validation Result"
+          }
+        },
+        "required": [
+          "id",
+          "account_reference",
+          "original_filename",
+          "page_count",
+          "status",
+          "current_stage",
+          "extraction_result",
+          "validation_result",
+          "review_findings",
+          "last_error_code",
+          "created_at"
+        ],
+        "title": "StatementResponse",
+        "type": "object"
+      },
+      "TransactionCorrectionRequest": {
+        "properties": {
+          "booking_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Booking Date"
+          },
+          "counterparty": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Counterparty"
+          },
+          "currency": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Currency"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "expected_revision": {
+            "default": 0,
+            "title": "Expected Revision",
+            "type": "integer"
+          },
+          "idempotency_key": {
+            "title": "Idempotency Key",
+            "type": "string"
+          },
+          "movement_kind": {
+            "anyOf": [
+              {
+                "enum": [
+                  "Expense",
+                  "Income",
+                  "Transfer",
+                  "Refund",
+                  "Fee"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Movement Kind"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "payment_channel": {
+            "anyOf": [
+              {
+                "enum": [
+                  "MB WAY",
+                  "Card",
+                  "Bank Transfer",
+                  "Direct Debit",
+                  "Cash Withdrawal",
+                  "Other"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Payment Channel"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "reporting_category": {
+            "anyOf": [
+              {
+                "enum": [
+                  "Groceries",
+                  "Restaurants & Cafes",
+                  "Housing",
+                  "Utilities",
+                  "Transport",
+                  "Health",
+                  "Insurance",
+                  "Subscriptions",
+                  "Shopping",
+                  "Leisure",
+                  "Travel",
+                  "Education",
+                  "Gifts & Donations",
+                  "Taxes",
+                  "Other Expense",
+                  "Salary",
+                  "Interest",
+                  "Other Income",
+                  "Bank Fees"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reporting Category"
+          },
+          "signed_amount": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Signed Amount"
+          },
+          "transfer_scope": {
+            "anyOf": [
+              {
+                "enum": [
+                  "own_account",
+                  "external_party",
+                  "unknown"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transfer Scope"
+          }
+        },
+        "required": [
+          "reason",
+          "idempotency_key"
+        ],
+        "title": "TransactionCorrectionRequest",
+        "type": "object"
+      },
+      "TransactionPageResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/TransactionResponse"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "title": "Offset",
+            "type": "integer"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "title": "TransactionPageResponse",
+        "type": "object"
+      },
+      "TransactionResponse": {
+        "properties": {
+          "booking_date": {
+            "format": "date",
+            "title": "Booking Date",
+            "type": "string"
+          },
+          "classification_confidence": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Classification Confidence"
+          },
+          "classification_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Classification Id"
+          },
+          "classification_provenance": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Classification Provenance"
+          },
+          "classification_resolution": {
+            "default": "pending",
+            "enum": [
+              "pending",
+              "accepted",
+              "corrected"
+            ],
+            "title": "Classification Resolution",
+            "type": "string"
+          },
+          "classification_status": {
+            "title": "Classification Status",
+            "type": "string"
+          },
+          "confidence": {
+            "title": "Confidence",
+            "type": "number"
+          },
+          "correction_revision": {
+            "default": 0,
+            "title": "Correction Revision",
+            "type": "integer"
+          },
+          "counterparty": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Counterparty"
+          },
+          "currency": {
+            "title": "Currency",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "evidence_line_end": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence Line End"
+          },
+          "evidence_line_start": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence Line Start"
+          },
+          "evidence_page_number": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence Page Number"
+          },
+          "evidence_quote": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence Quote"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "movement_kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Movement Kind"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "original_booking_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Booking Date"
+          },
+          "original_counterparty": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Counterparty"
+          },
+          "original_currency": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Currency"
+          },
+          "original_description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Description"
+          },
+          "original_movement_kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Movement Kind"
+          },
+          "original_note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Note"
+          },
+          "original_payment_channel": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Payment Channel"
+          },
+          "original_reporting_category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Reporting Category"
+          },
+          "original_signed_amount": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Signed Amount"
+          },
+          "original_transfer_scope": {
+            "anyOf": [
+              {
+                "enum": [
+                  "own_account",
+                  "external_party",
+                  "unknown"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Transfer Scope"
+          },
+          "payment_channel": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Payment Channel"
+          },
+          "reporting_category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reporting Category"
+          },
+          "review_findings": {
+            "items": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "title": "Review Findings",
+            "type": "array"
+          },
+          "signed_amount": {
+            "title": "Signed Amount",
+            "type": "string"
+          },
+          "source_ordinal": {
+            "title": "Source Ordinal",
+            "type": "integer"
+          },
+          "statement_filename": {
+            "title": "Statement Filename",
+            "type": "string"
+          },
+          "statement_id": {
+            "format": "uuid",
+            "title": "Statement Id",
+            "type": "string"
+          },
+          "statement_status": {
+            "enum": [
+              "processing",
+              "needs_review",
+              "ready",
+              "failed",
+              "archived"
+            ],
+            "title": "Statement Status",
+            "type": "string"
+          },
+          "transfer_scope": {
+            "anyOf": [
+              {
+                "enum": [
+                  "own_account",
+                  "external_party",
+                  "unknown"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transfer Scope"
+          }
+        },
+        "required": [
+          "id",
+          "statement_id",
+          "statement_filename",
+          "statement_status",
+          "source_ordinal",
+          "booking_date",
+          "description",
+          "signed_amount",
+          "currency",
+          "confidence",
+          "evidence_page_number",
+          "evidence_line_start",
+          "evidence_line_end",
+          "evidence_quote",
+          "reporting_category",
+          "movement_kind",
+          "payment_channel",
+          "classification_status",
+          "classification_confidence",
+          "classification_provenance",
+          "review_findings"
+        ],
+        "title": "TransactionResponse",
+        "type": "object"
+      },
+      "TransactionRevertRequest": {
+        "properties": {
+          "expected_revision": {
+            "default": 0,
+            "title": "Expected Revision",
+            "type": "integer"
+          },
+          "idempotency_key": {
+            "title": "Idempotency Key",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "target_revision": {
+            "title": "Target Revision",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "target_revision",
+          "reason",
+          "idempotency_key"
+        ],
+        "title": "TransactionRevertRequest",
+        "type": "object"
+      },
+      "TransactionValuesResponse": {
+        "properties": {
+          "booking_date": {
+            "format": "date",
+            "title": "Booking Date",
+            "type": "string"
+          },
+          "counterparty": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Counterparty"
+          },
+          "currency": {
+            "title": "Currency",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "movement_kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Movement Kind"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "payment_channel": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Payment Channel"
+          },
+          "reporting_category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reporting Category"
+          },
+          "signed_amount": {
+            "title": "Signed Amount",
+            "type": "string"
+          },
+          "transfer_scope": {
+            "anyOf": [
+              {
+                "enum": [
+                  "own_account",
+                  "external_party",
+                  "unknown"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transfer Scope"
+          }
+        },
+        "required": [
+          "booking_date",
+          "description",
+          "signed_amount",
+          "currency",
+          "reporting_category",
+          "movement_kind",
+          "payment_channel",
+          "counterparty",
+          "note",
+          "transfer_scope"
+        ],
+        "title": "TransactionValuesResponse",
+        "type": "object"
+      },
+      "TransferSummaryResponse": {
+        "properties": {
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "external_total": {
+            "title": "External Total",
+            "type": "string"
+          },
+          "incoming": {
+            "title": "Incoming",
+            "type": "string"
+          },
+          "outgoing": {
+            "title": "Outgoing",
+            "type": "string"
+          },
+          "own_account_total": {
+            "title": "Own Account Total",
+            "type": "string"
+          },
+          "total": {
+            "title": "Total",
+            "type": "string"
+          },
+          "unknown_total": {
+            "title": "Unknown Total",
+            "type": "string"
+          }
+        },
+        "required": [
+          "count",
+          "total",
+          "incoming",
+          "outgoing",
+          "own_account_total",
+          "external_total",
+          "unknown_total"
+        ],
+        "title": "TransferSummaryResponse",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "title": "Bank Statement Assistant",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/health/live": {
+      "get": {
+        "operationId": "liveness_api_health_live_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Liveness",
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/api/health/ready": {
+      "get": {
+        "operationId": "dependency_readiness_api_health_ready_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            },
+            "description": "Dependency unavailable"
+          }
+        },
+        "summary": "Dependency Readiness",
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/api/reports": {
+      "get": {
+        "operationId": "get_report_api_reports_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "month_from",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "pattern": "^\\d{4}-\\d{2}$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Month From"
+            }
+          },
+          {
+            "in": "query",
+            "name": "month_to",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "pattern": "^\\d{4}-\\d{2}$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Month To"
+            }
+          },
+          {
+            "in": "query",
+            "name": "statement_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Statement Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "currency",
+            "required": false,
+            "schema": {
+              "default": "EUR",
+              "maxLength": 3,
+              "minLength": 3,
+              "title": "Currency",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "reporting_category",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "Groceries",
+                    "Restaurants & Cafes",
+                    "Housing",
+                    "Utilities",
+                    "Transport",
+                    "Health",
+                    "Insurance",
+                    "Subscriptions",
+                    "Shopping",
+                    "Leisure",
+                    "Travel",
+                    "Education",
+                    "Gifts & Donations",
+                    "Taxes",
+                    "Other Expense",
+                    "Salary",
+                    "Interest",
+                    "Other Income",
+                    "Bank Fees"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Reporting Category"
+            }
+          },
+          {
+            "in": "query",
+            "name": "movement_kind",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "Expense",
+                    "Income",
+                    "Transfer",
+                    "Refund",
+                    "Fee"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Movement Kind"
+            }
+          },
+          {
+            "in": "query",
+            "name": "payment_channel",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "MB WAY",
+                    "Card",
+                    "Bank Transfer",
+                    "Direct Debit",
+                    "Cash Withdrawal",
+                    "Other"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Payment Channel"
+            }
+          },
+          {
+            "in": "query",
+            "name": "counterparty",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 200,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Counterparty"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_provisional",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Provisional",
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Report",
+        "tags": [
+          "reports"
+        ]
+      }
+    },
+    "/api/reports/months/{month}": {
+      "get": {
+        "operationId": "get_month_report_api_reports_months__month__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "month",
+            "required": true,
+            "schema": {
+              "pattern": "^\\d{4}-\\d{2}$",
+              "title": "Month",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "statement_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Statement Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "currency",
+            "required": false,
+            "schema": {
+              "default": "EUR",
+              "maxLength": 3,
+              "minLength": 3,
+              "title": "Currency",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "reporting_category",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "Groceries",
+                    "Restaurants & Cafes",
+                    "Housing",
+                    "Utilities",
+                    "Transport",
+                    "Health",
+                    "Insurance",
+                    "Subscriptions",
+                    "Shopping",
+                    "Leisure",
+                    "Travel",
+                    "Education",
+                    "Gifts & Donations",
+                    "Taxes",
+                    "Other Expense",
+                    "Salary",
+                    "Interest",
+                    "Other Income",
+                    "Bank Fees"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Reporting Category"
+            }
+          },
+          {
+            "in": "query",
+            "name": "movement_kind",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "Expense",
+                    "Income",
+                    "Transfer",
+                    "Refund",
+                    "Fee"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Movement Kind"
+            }
+          },
+          {
+            "in": "query",
+            "name": "payment_channel",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "MB WAY",
+                    "Card",
+                    "Bank Transfer",
+                    "Direct Debit",
+                    "Cash Withdrawal",
+                    "Other"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Payment Channel"
+            }
+          },
+          {
+            "in": "query",
+            "name": "counterparty",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 200,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Counterparty"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_provisional",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Provisional",
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MonthlyReportResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Month Report",
+        "tags": [
+          "reports"
+        ]
+      }
+    },
+    "/api/reports/transactions": {
+      "get": {
+        "operationId": "get_report_transactions_api_reports_transactions_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "group",
+            "required": true,
+            "schema": {
+              "enum": [
+                "category",
+                "counterparty",
+                "payment_channel",
+                "movement_kind",
+                "transfer_direction",
+                "transfer_scope"
+              ],
+              "title": "Group",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "required": true,
+            "schema": {
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Value",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "month_from",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "pattern": "^\\d{4}-\\d{2}$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Month From"
+            }
+          },
+          {
+            "in": "query",
+            "name": "month_to",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "pattern": "^\\d{4}-\\d{2}$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Month To"
+            }
+          },
+          {
+            "in": "query",
+            "name": "statement_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Statement Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "currency",
+            "required": false,
+            "schema": {
+              "default": "EUR",
+              "maxLength": 3,
+              "minLength": 3,
+              "title": "Currency",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "reporting_category",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "Groceries",
+                    "Restaurants & Cafes",
+                    "Housing",
+                    "Utilities",
+                    "Transport",
+                    "Health",
+                    "Insurance",
+                    "Subscriptions",
+                    "Shopping",
+                    "Leisure",
+                    "Travel",
+                    "Education",
+                    "Gifts & Donations",
+                    "Taxes",
+                    "Other Expense",
+                    "Salary",
+                    "Interest",
+                    "Other Income",
+                    "Bank Fees"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Reporting Category"
+            }
+          },
+          {
+            "in": "query",
+            "name": "movement_kind",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "Expense",
+                    "Income",
+                    "Transfer",
+                    "Refund",
+                    "Fee"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Movement Kind"
+            }
+          },
+          {
+            "in": "query",
+            "name": "payment_channel",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "MB WAY",
+                    "Card",
+                    "Bank Transfer",
+                    "Direct Debit",
+                    "Cash Withdrawal",
+                    "Other"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Payment Channel"
+            }
+          },
+          {
+            "in": "query",
+            "name": "counterparty",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 200,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Counterparty"
+            }
+          },
+          {
+            "in": "query",
+            "name": "include_provisional",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Provisional",
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportTransactionPageResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Report Transactions",
+        "tags": [
+          "reports"
+        ]
+      }
+    },
+    "/api/statements": {
+      "get": {
+        "operationId": "list_statements_api_statements_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StatementResponse"
+                  },
+                  "title": "Response List Statements Api Statements Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Statements",
+        "tags": [
+          "statements"
+        ]
+      },
+      "post": {
+        "operationId": "upload_statement_api_statements_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_statement_api_statements_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatementResponse"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatementResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Upload Statement",
+        "tags": [
+          "statements"
+        ]
+      }
+    },
+    "/api/statements/{statement_id}": {
+      "get": {
+        "operationId": "get_statement_api_statements__statement_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "statement_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Statement Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatementResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Statement",
+        "tags": [
+          "statements"
+        ]
+      }
+    },
+    "/api/statements/{statement_id}/reprocess": {
+      "post": {
+        "operationId": "reprocess_statement_api_statements__statement_id__reprocess_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "statement_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Statement Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatementResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Reprocess Statement",
+        "tags": [
+          "statements"
+        ]
+      }
+    },
+    "/api/statements/{statement_id}/retry": {
+      "post": {
+        "operationId": "retry_statement_api_statements__statement_id__retry_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "statement_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Statement Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatementResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Retry Statement",
+        "tags": [
+          "statements"
+        ]
+      }
+    },
+    "/api/transactions": {
+      "get": {
+        "operationId": "list_transactions_api_transactions_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "statement_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Statement Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "review_only",
+            "required": false,
+            "schema": {
+              "default": false,
+              "title": "Review Only",
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "booking_date_from",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Booking Date From"
+            }
+          },
+          {
+            "in": "query",
+            "name": "booking_date_to",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Booking Date To"
+            }
+          },
+          {
+            "in": "query",
+            "name": "description",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 200,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Description"
+            }
+          },
+          {
+            "in": "query",
+            "name": "amount_min",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "minimum": 0.0,
+                  "type": "number"
+                },
+                {
+                  "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Amount Min"
+            }
+          },
+          {
+            "in": "query",
+            "name": "amount_max",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "minimum": 0.0,
+                  "type": "number"
+                },
+                {
+                  "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Amount Max"
+            }
+          },
+          {
+            "in": "query",
+            "name": "movement_kind",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "Expense",
+                    "Income",
+                    "Transfer",
+                    "Refund",
+                    "Fee"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Movement Kind"
+            }
+          },
+          {
+            "in": "query",
+            "name": "money_direction",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "in",
+                    "out"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Money Direction"
+            }
+          },
+          {
+            "in": "query",
+            "name": "classification_status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "unclassified",
+                    "classified",
+                    "needs_review"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Classification Status"
+            }
+          },
+          {
+            "in": "query",
+            "name": "payment_channel",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "MB WAY",
+                    "Card",
+                    "Bank Transfer",
+                    "Direct Debit",
+                    "Cash Withdrawal",
+                    "Other"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Payment Channel"
+            }
+          },
+          {
+            "in": "query",
+            "name": "transfer_scope",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "own_account",
+                    "external_party",
+                    "unknown"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Transfer Scope"
+            }
+          },
+          {
+            "in": "query",
+            "name": "reporting_category",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "Groceries",
+                    "Restaurants & Cafes",
+                    "Housing",
+                    "Utilities",
+                    "Transport",
+                    "Health",
+                    "Insurance",
+                    "Subscriptions",
+                    "Shopping",
+                    "Leisure",
+                    "Travel",
+                    "Education",
+                    "Gifts & Donations",
+                    "Taxes",
+                    "Other Expense",
+                    "Salary",
+                    "Interest",
+                    "Other Income",
+                    "Bank Fees"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Reporting Category"
+            }
+          },
+          {
+            "in": "query",
+            "name": "currency",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 3,
+                  "minLength": 3,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Currency"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "default": "booking_date",
+              "enum": [
+                "booking_date",
+                "signed_amount",
+                "description",
+                "source_ordinal"
+              ],
+              "title": "Sort",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "schema": {
+              "default": "desc",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "title": "Direction",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 50,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "title": "Offset",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionPageResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Transactions",
+        "tags": [
+          "transactions"
+        ]
+      }
+    },
+    "/api/transactions/{transaction_id}": {
+      "get": {
+        "operationId": "get_transaction_api_transactions__transaction_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "transaction_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Transaction Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Transaction",
+        "tags": [
+          "transactions"
+        ]
+      }
+    },
+    "/api/transactions/{transaction_id}/classification/accept": {
+      "post": {
+        "operationId": "accept_classification_api_transactions__transaction_id__classification_accept_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "transaction_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Transaction Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClassificationAcceptanceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Accept Classification",
+        "tags": [
+          "transactions"
+        ]
+      }
+    },
+    "/api/transactions/{transaction_id}/corrections": {
+      "post": {
+        "operationId": "correct_transaction_api_transactions__transaction_id__corrections_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "transaction_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Transaction Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionCorrectionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Correct Transaction",
+        "tags": [
+          "transactions"
+        ]
+      }
+    },
+    "/api/transactions/{transaction_id}/history": {
+      "get": {
+        "operationId": "transaction_history_api_transactions__transaction_id__history_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "transaction_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Transaction Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CorrectionRecordResponse"
+                  },
+                  "title": "Response Transaction History Api Transactions  Transaction Id  History Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Transaction History",
+        "tags": [
+          "transactions"
+        ]
+      }
+    },
+    "/api/transactions/{transaction_id}/revert": {
+      "post": {
+        "operationId": "revert_transaction_api_transactions__transaction_id__revert_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "transaction_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Transaction Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionRevertRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Revert Transaction",
+        "tags": [
+          "transactions"
+        ]
+      }
+    }
+  }
+}

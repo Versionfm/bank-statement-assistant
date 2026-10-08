@@ -1,0 +1,3 @@
+# Share one vLLM endpoint across model roles
+
+Classification, Statement review, and the Financial Assistant will share one persistent, cluster-internal vLLM deployment because the initial 12 GB GPU cannot host separate models concurrently. Requests will use role-specific prompts, structured-output or tool settings, and application-level scheduling; conversation history remains application state, so the deployment will not restart or clear its KV cache between roles. Statement parsing is deterministic and does not use this deployment. The baseline model is Qwen3-8B-AWQ, while Qwen3-14B-AWQ may replace it only after bounded-context, single-sequence evaluation proves materially better quality without unacceptable stability or latency.
